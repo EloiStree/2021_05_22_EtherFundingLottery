@@ -72,6 +72,7 @@ You have a now:
 - A decentrelized timestamp to finish the lottery and decide of the winner.
 
 
+
 ### Where to display the public information on the initial step up
 
 If the community thrust the organizer, where ever you want that you are 99.9999% sure it won't be modify or hack for your community to rely on this start condition of the contest.
