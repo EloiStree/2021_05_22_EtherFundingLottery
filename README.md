@@ -38,11 +38,51 @@ Lottery Stop: 1 ETH
 // How many of the wallet will go to the funding vs the winner
 Funding: 40%
 
-hash To victory:
-```
-// WIP, incoming public example of choosing a winner.
+
+## Step by step
+
+### Amount is reach
+
+1. Hash the title of the contest
+2. Hash the start transactionID with Title Hash
+3. Take the last x transaction of the wallet at the transaction that bring the amount to equal or superior to the lottery max range.
+4. Blockchain them with H256  to make a random winner hash
+5. Transform the the char as int (based on a public constant array) 
+6. make a winner random number of this chars: `aeiou > a e i o u > 10 31 50 46 51 > 1031504651`
+7. From late to recent transaction, make a list of all the participants that put the minimum entry amount. And check that he is not already in the list at each entry.
+8. Make a modulo of the winner number with the number of participants and apply the result to the array or participants.
+9. Ta da !
+
+You have now:
+- A winner that is historicaly store indirectly to the blockchain
+- A winner that is computable by anyone one any computer at anytime.
+- A winner that is decided by pure randomness of H256
+- A winner that can't be predicted until the amount is reach. 
+- A log indirectly block in the block chain that can't be modify
 
 
-```
+### Lotterry end with not the amount wanted
+
+1. Wait that a block has a superior timestamp of the contest timestamp.
+2. Wait N block to be sure that the blockchain don't find a corrupted fork.
+3. Compute the winner based on history from the start block of the contest until the '1.' block.
+4. Ta da ! 
+
+You have a now:
+- A decentrelized timestamp to finish the lottery and decide of the winner.
+
+
+### Where to display the public informatino on the initial step up
+
+If the community thrust the organizer, where ever you want that you are 99.9999% sure it won't be modify or hack for your community to rely on this start condition of the contest.
+
+What I could do with more knowledge of ethereum is to store a compressed initial setup of the contest as a metainformation of the start transaction of in the wallet.
+That would help a lot's in the decentralized and thrust of this project. But for the moment I don't know how to do it.
+
+
+
+
+
+
 
 
