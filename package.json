@@ -1,0 +1,23 @@
+
+{                                                                                
+  "name": "be.eloistree.etherfundinglottery",                              
+  "displayName": "PixelWars",                        
+  "version": "0.0.1",                         
+  "unity": "2018.1",                             
+  "unityRelease": "",                             
+  "description": "This package is a demonstration of how you can create an lottery with a blockchain origine. There is a simulator with the package. But you need to join this to an other package to make it works with your wanted blockchain crypto.",                         
+  "keywords": ["Script","Tool"],                       
+  "dependencies":{},     
+  "relatedPackages":{},     
+  "samples" : [],     
+  "author" : {
+"name":"",
+"mail":"",
+"url":""},     
+  "repository":{
+"type":"Git",
+"url":"https://github.com/EloiStree/2021_05_22_EtherFundingLottery.git",
+"footprint":"",
+"revision":""},     
+  "category": "Script"                   
+} 
