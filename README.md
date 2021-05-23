@@ -10,6 +10,8 @@ I am the creator of the idea, but I am not responsible of the use of it.
 
 ------------------------------------
 
+> "Don't trust, verify"
+> 
 -------------------------------------
 
 # Idea
