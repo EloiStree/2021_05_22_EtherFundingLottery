@@ -84,6 +84,27 @@ That would help a lot's in the decentralized and thrust of this project. But for
 
 
 
+---------------------------
+## Warning
+
+The main weak point of this concept:
+You need to trust organizer that he will send the money at the winner address. 
+
+But the current tool provide some code that allows anyone to verified the transaction from the wallet to the winner address had been done.
+
+**PS: Orginiazed can use automated or manual lottery.**
+Don't assume that the organizer is a "scammer" if he don't do the transfert immediately.
+But verife until he does that he did. 
+
+If he don't you can't do something about it.
+It is why I warn you here.
+
+I would participate to this lottery but:
+- I won't participate to a lottery funding pool if I don't have
+  - enough information on the organizer
+  - thrust on the organizer or history of the organizer beeing thrustfull
+- I won't participate to a lottery funding pool if the entry is not "cheap" it don't worse the risk.
+
 
 
 
