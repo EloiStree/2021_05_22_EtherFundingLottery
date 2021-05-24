@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ComputeEntry : MonoBehaviour
 {
-    public EtherFundingPublicLottery m_target;
+    public EtherFundingPublicLotteryMono m_target;
 
     public string m_lotteryIdTitleHash="Default";
     public string m_lotteryStartingTransactionIdHash="";
@@ -31,14 +31,16 @@ public class ComputeEntry : MonoBehaviour
             }
         }
 
-        m_target.m_startingHash = m_lotteryIdTitleHash;
+        m_target.m_titleHash = m_lotteryIdTitleHash;
         m_target.m_startingTransactionHash = m_lotteryStartingTransactionIdHash;
         m_target.m_participantsInJoinOrder = m_participants.ToArray();
-        m_target.m_allTransactionInReceivedOrder = transactions.Select(k=>k.m_origineAddress).ToArray();
-        if(computeTheChangeDirectly)
-        m_target.ComputeWinner();
+        m_target.m_allTransactionInReceivedOrder = transactions.Select(k=>k.m_transactionId).ToArray();
+        if (computeTheChangeDirectly)
+            RequestComputationWithCurrentData();
+    }
 
-
+    public void RequestComputationWithCurrentData() {
+        m_target.ComputeWinnerBasedWithStackTrace();
     }
 
 }

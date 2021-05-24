@@ -21,7 +21,7 @@ public class UI_SimulationToLotteryFundingComputation : MonoBehaviour
         m_computationEntryTarget.m_lotteryStartingTransactionIdHash = m_transactionStartHash.text;
         GetWeiOfEthString(m_minimumWeiEntryInEth.text, out string asWei);
         m_computationEntryTarget.m_minWeiAmount = m_weiDebug= asWei;
-        m_computationEntryTarget.SetEntry(TransactionConverter.GetListOfTransactionsWithoutFilterCSV(m_transactionsSource.GetText()), true);
+        m_computationEntryTarget.SetEntry(TransactionConverter.GetListOfTransactionsWithoutFilterCSV(m_transactionsSource.GetText()), false);
     }
 
 
