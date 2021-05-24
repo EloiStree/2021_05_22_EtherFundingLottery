@@ -83,6 +83,11 @@ What I could do with more knowledge of ethereum is to store a compressed initial
 That would help a lot's in the decentralized and thrust of this project. But for the moment I don't know how to do it.
 
 
+
+## Code example
+
+This code is what I am using in my second draft of this experiment prototype in C# (2021 May 24).
+
 ``` csharp
 
 public class CryptoDontTrustVerifyWinnerAlogrithm
