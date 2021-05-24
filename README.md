@@ -83,6 +83,119 @@ What I could do with more knowledge of ethereum is to store a compressed initial
 That would help a lot's in the decentralized and thrust of this project. But for the moment I don't know how to do it.
 
 
+``` csharp
+
+public class CryptoDontTrustVerifyWinnerAlogrithm
+{
+    public static void ComputeWinnerIndexOf(
+       string title,
+       string transactionId,
+       int participantCount,
+       string[] decisionTransactionInReceivedOrder,
+       out uint winnerIndex,
+       out WinnerHashStackTrace computeStack)
+    {
+        if (title == null || transactionId == null)
+            throw new NullReferenceException("Title or transaction can be empty but not null");
+        if (participantCount <= 0)
+            throw new Exception("Need participants");
+        if (decisionTransactionInReceivedOrder == null || decisionTransactionInReceivedOrder.Length <= 0)
+            throw new Exception("Need transactions");
+        for (int i = 0; i < decisionTransactionInReceivedOrder.Length; i++)
+        {
+            if (string.IsNullOrEmpty(decisionTransactionInReceivedOrder[i]))
+                throw new NullReferenceException("On transaction is null or empty.");
+        }
+
+
+        computeStack = new WinnerHashStackTrace();
+        computeStack.SaveCurrentDateAsGMD();
+
+        string logDebugHolder = "";
+        string previousHash = "";
+
+        computeStack.m_title = title;
+
+        //CORE
+        previousHash = ComputeSha256Hash(title);
+
+        computeStack.m_titleHash256 = previousHash;
+        logDebugHolder = previousHash;
+        computeStack.m_startTransaction = transactionId;
+        computeStack.m_titleHash256AppendTransaction = previousHash + transactionId;
+
+        //CORE
+        previousHash = ComputeSha256Hash(previousHash + transactionId);
+
+        computeStack.m_startTransaction = transactionId;
+        computeStack.m_titleHash256AppendTransactionHash = previousHash;
+
+        //CORE
+        for (int i = 0; i < decisionTransactionInReceivedOrder.Length; i++)
+        {
+            logDebugHolder = previousHash;
+
+            //CORE
+            previousHash = ComputeSha256Hash(previousHash + decisionTransactionInReceivedOrder[i]);
+
+            computeStack.m_transactionHash.Add(
+                new WinnerHashStackTrace.TransactionHash(logDebugHolder, decisionTransactionInReceivedOrder[i], previousHash));
+        }
+
+        //CORE
+        string currentComputedHashOfVictory = previousHash;
+
+        computeStack.m_finalHash = previousHash;
+
+
+        //CORE
+        char[] winnerAsChar = currentComputedHashOfVictory.ToCharArray();
+        //CORE
+        int[] winnerAsInt = winnerAsChar.Select(k => (int)k).ToArray();
+        //CORE
+        string winnerAsStringNumber = string.Join("", winnerAsInt);
+
+        computeStack.m_finalHashAsChars = string.Join(" ", winnerAsChar);
+        computeStack.m_finalHashAsNumbers = string.Join(" ", winnerAsInt);
+        computeStack.m_finalHashAsNumber = winnerAsStringNumber;
+
+        //CORE
+        BigInteger.TryParse(winnerAsStringNumber, out BigInteger winnerAsNumber);
+
+        //CORE    
+        int index = (int)BigInteger.ModPow(winnerAsNumber, new BigInteger(1), new BigInteger(participantCount));
+
+
+        computeStack.m_finalHashNumberModuloParticipants = index;
+        computeStack.m_winnerIndex = index;
+        computeStack.m_participantNumber = (int)participantCount;
+
+        //CORE   
+        winnerIndex = (uint)index;
+
+    }
+    static string ComputeSha256Hash(string rawData)
+    {
+        //source: https://www.c-sharpcorner.com/article/compute-sha256-hash-in-c-sharp/#:~:text=The%20HashAlgorithm%20class%20is%20the,byte%20array%20of%20256%20bits.
+        // Create a SHA256   
+        using (SHA256 sha256Hash = SHA256.Create())
+        {
+            // ComputeHash - returns byte array  
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+            // Convert byte array to a string   
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
+        }
+    }
+
+```
+
+
 
 ---------------------------
 ## Warning
