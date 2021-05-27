@@ -20,7 +20,6 @@ public class EtherFundingPublicLotteryMono : MonoBehaviour
     public string[] m_participantsInJoinOrder;
 
     [Tooltip("Transactions history from start transaction to now")]
-    public string[] m_allTransactionInReceivedOrder;
     public string[] m_usedTransactionInReceivedOrder;
 
 
@@ -36,16 +35,6 @@ public class EtherFundingPublicLotteryMono : MonoBehaviour
     public string m_currentWinnerAddress;
 
 
-    [Header("Details")]
-    public bool m_useDetailsLog;
-    public bool m_disclaimer;
-    [Header("Owner")]
-    public bool m_appendOwner;
-    public string m_lotteryOwnerContactInformation = "";
-    public string m_lotteryOwnerInformationToUsers = "";
-    public string m_lotteryOwnerHumanityDefense = "";
-
-    public string m_winnerExplained;
 
     [Header("Event")]
     public UnityEvent m_onComputedEvent;
@@ -55,30 +44,27 @@ public class EtherFundingPublicLotteryMono : MonoBehaviour
         ComputeWinnerBasedWithStackTrace();
     }
 
+    public void SetTransactionFrom( string [] transactionArray) {
+        m_usedTransactionInReceivedOrder = transactionArray;
+    }
+
     public void ComputeWinnerBasedWithStackTrace()
     {
         try
         {
 
-            m_usedTransactionInReceivedOrder = new string[m_minTransactionToComputeTheWin];
-            int ti = 0;
-            for (int i = m_allTransactionInReceivedOrder.Length - m_minTransactionToComputeTheWin; i < m_allTransactionInReceivedOrder.Length; i++)
-            {
-                m_usedTransactionInReceivedOrder[ti] = m_allTransactionInReceivedOrder[i];
-                ti++;
-
-            }
+          
 
             CryptoDontTrustVerifyWinnerAlogrithm.ComputeWinnerIndexOf(m_titleHash, m_startingTransactionHash, m_participantsInJoinOrder.Length,
                 m_usedTransactionInReceivedOrder, out m_currentWinnerIndex, out m_computeStack);
+            m_computed = true;
+            m_currentWinnerAddress = m_participantsInJoinOrder[m_currentWinnerIndex];
         }
         catch (Exception e) { m_shitHappen = true; Debug.LogWarning(e); }
         m_onComputedEvent.Invoke();
     }
 
-    public int m_minParticipantsToWin = 10;
-    public int m_minTransactionToComputeTheWin = 10;
-    public WinnerHashStackTrace m_computeStack = new WinnerHashStackTrace();
+    public LF_WinnerExplainedLog m_computeStack = new LF_WinnerExplainedLog();
 
 
 
@@ -94,7 +80,7 @@ public class CryptoDontTrustVerifyWinnerAlogrithm
        int participantCount,
        string[] decisionTransactionInReceivedOrder,
        out uint winnerIndex,
-       out WinnerHashStackTrace computeStack)
+       out LF_WinnerExplainedLog computeStack)
     {
         if (title == null || transactionId == null)
             throw new NullReferenceException("Title or transaction can be empty but not null");
@@ -109,7 +95,7 @@ public class CryptoDontTrustVerifyWinnerAlogrithm
         }
 
 
-        computeStack = new WinnerHashStackTrace();
+        computeStack = new LF_WinnerExplainedLog();
         computeStack.SaveCurrentDateAsGMD();
 
         string logDebugHolder = "";
@@ -140,7 +126,7 @@ public class CryptoDontTrustVerifyWinnerAlogrithm
             previousHash = ComputeSha256Hash(previousHash + decisionTransactionInReceivedOrder[i]);
 
             computeStack.m_transactionHash.Add(
-                new WinnerHashStackTrace.TransactionHash(logDebugHolder, decisionTransactionInReceivedOrder[i], previousHash));
+                new LF_WinnerExplainedLog.TransactionHash(logDebugHolder, decisionTransactionInReceivedOrder[i], previousHash));
         }
 
         //CORE

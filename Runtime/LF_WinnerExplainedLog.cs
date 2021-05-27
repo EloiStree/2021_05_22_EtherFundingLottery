@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [System.Serializable]
-public class WinnerHashStackTrace
+public class LF_WinnerExplainedLog
 {
 
     //// START IDEA
@@ -55,5 +55,15 @@ public class WinnerHashStackTrace
     public string[] GetTransactionsUsedInOrder()
     {
         return m_transactionHash.Select(k=>k.m_transactionHash).ToArray();
+    }
+
+    public string GetWinnerHash()
+    {
+        return m_finalHash;
+    }
+
+    public int GetIndexOfWinner()
+    {
+        return m_winnerIndex;
     }
 }

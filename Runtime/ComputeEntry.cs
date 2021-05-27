@@ -27,14 +27,13 @@ public class ComputeEntry : MonoBehaviour
                 if (!m_participants.Contains(sourceAddress)){
                     m_participants.Add(sourceAddress);
                 }
-            
             }
         }
-
         m_target.m_titleHash = m_lotteryIdTitleHash;
         m_target.m_startingTransactionHash = m_lotteryStartingTransactionIdHash;
         m_target.m_participantsInJoinOrder = m_participants.ToArray();
-        m_target.m_allTransactionInReceivedOrder = transactions.Select(k=>k.m_transactionId).ToArray();
+        string[] ts = transactions.Select(k => k.m_transactionId).ToArray();
+        m_target.SetTransactionFrom( ts);
         if (computeTheChangeDirectly)
             RequestComputationWithCurrentData();
     }
